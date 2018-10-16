@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Hello World</title>
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="./style.css">
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="text/babel">
+
+      function Title(props){
+       return(
+       <React.Fragment>
+         <h1>{props.title}</h1>
+          <p>Edited{props.count}</p>
+       </React.Fragment>
+         
+       )
+    }
+
+     class HotNews extends React.Component{
+      constructor(props){
+        super(props);
+        this.state = {
+         totalEditCount:0
+       };
+
+       
+      }
+    
+     edit(){
+     alert("edit button clicked");
+      this.setState({
+        totalEditCount: this.state.totalEditCount + 1
+    });
+          }
+     delete(){
+      alert("delete button clicked");
+   }
+      render(){
+          const props = this.props;
+          const totalEditCount = this.state.totalEditCount;
+        return(
+        <div className = "newsContainer">
+          <Title  title = {props.title} count = {totalEditCount}/>
+           <p>{props.children}</p>
+          <div className = "action">
+            <button className = "edit" onClick = {() => this.edit()} >Edit</button>
+            <button className = "delete" onClick = {this.delete}>Delete</button>
+          </div>
+          {!!totalEditCount && ( <p>Total edit clicked{this.state.totalEditCount}</p>)}         
+        </div>       
+       );
+
+    }
+   }
+    
+
+      ReactDOM.render(
+      <div className = "container">
+        <HotNews title = "news1">Mustafiz plays today</HotNews>
+        <HotNews title = "news2">Barcelona is the best</HotNews>              
+           </div>,
+        document.getElementById('root')
+      );
+
+    </script>
+    
+  </body>
+</html>
